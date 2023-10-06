@@ -1,0 +1,7 @@
+version: 1.2
+workflows:
+ - name: GBS_Identification_and_Typing
+   subclass: WDL
+   primaryDescriptorPath: /workflows/wf_gbs_id_and_typing.wdl
+   testParameterFiles:
+    - empty.json
