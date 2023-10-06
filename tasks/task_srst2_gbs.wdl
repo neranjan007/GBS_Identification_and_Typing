@@ -19,7 +19,19 @@ task srst2_gbs_task{
     
         srst2 --input_pe ~{read1} ~{read2} --output ~{samplename}-serotypes --log --gene_db /gbs-db/GBS-SBG.fasta
 
-        awk -F "\t" 'NR==2 {print $2}' ~{samplename}-serotypes__genes__GBS-SBG__results.txt > SEROTYPE
+        if [ -f  "~{samplename}-serotypes__genes__GBS-SBG__results.txt" ]; then
+            awk -F "\t" 'NR==2 {print $2}' ~{samplename}-serotypes__genes__GBS-SBG__results.txt > SEROTYPE
+        else
+            echo "No serotype detected" > SEROTYPE
+        fi 
+
+        if [ -f "~{samplename}-serotypes__fullgenes__GBS-SBG__results.txt" ]; then 
+            echo "fullgenes__GBS-SBG__results.txt file exsits"
+        else
+            echo "fullgenes__GBS-SBG__results.txt file not present"
+            echo "No fullgenes file produced" > ~{samplename}-serotypes__fullgenes__GBS-SBG__results.txt
+        fi
+
     >>>
 
     output{
