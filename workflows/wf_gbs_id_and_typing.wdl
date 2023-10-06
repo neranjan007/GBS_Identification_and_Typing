@@ -9,6 +9,7 @@ import "../tasks/task_quast.wdl" as quast
 import "../tasks/task_rmlst.wdl" as rmlst
 import "../tasks/task_gbs_sbg.wdl" as gbs_sbg
 import "../tasks/task_mummer-ani.wdl" as ani
+import "../tasks/task_ts_mlst.wdl" as ts_mlst
 
 workflow GBS_identification_n_typing_workflow{
     input{
@@ -83,6 +84,12 @@ workflow GBS_identification_n_typing_workflow{
             samplename = samplename
     }
 
+    call ts_mlst.ts_mlst_task{
+        input:
+            assembly = spades_task.scaffolds,
+            samplename = samplename
+    }
+
     output{
         # raw fastqc
         File FASTQC_raw_R1 = rawfastqc_task.r1_fastqc
@@ -132,5 +139,14 @@ workflow GBS_identification_n_typing_workflow{
         Float ani_precent_aligned = mummerANI_task.ani_precent_aligned
         Float ani_percent = mummerANI_task.ani_ANI
         String ani_species = mummerANI_task.ani_species
+
+        # TS_MLST typing
+        File TS_MLST_results = ts_mlst_task.ts_mlst_results
+        String TS_MLST_predicted_st = ts_mlst_task.ts_mlst_predicted_st
+        String TS_MLST_pubmlst_scheme = ts_mlst_task.ts_mlst_pubmlst_scheme
+        String TS_MLST_allelic_profile = ts_mlst_task.ts_mlst_allelic_profile
+        File? TS_MLST_novel_alleles = ts_mlst_task.ts_mlst_novel_alleles
+
+
     }
 }
