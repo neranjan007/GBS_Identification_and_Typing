@@ -10,6 +10,7 @@ import "../tasks/task_rmlst.wdl" as rmlst
 import "../tasks/task_gbs_sbg.wdl" as gbs_sbg
 import "../tasks/task_mummer-ani.wdl" as ani
 import "../tasks/task_ts_mlst.wdl" as ts_mlst
+import "../tasks/task_amrfinderplus.wdl" as amrfinderplus
 
 workflow GBS_identification_n_typing_workflow{
     input{
@@ -90,6 +91,13 @@ workflow GBS_identification_n_typing_workflow{
             samplename = samplename
     }
 
+    call amrfinderplus.amrfinderplus_task{
+        input:
+            assembly = spades_task.scaffolds,
+            samplename = samplename,
+            organism = trimmed_kraken_n_bracken_task.bracken_taxon
+    }
+
     output{
         # raw fastqc
         File FASTQC_raw_R1 = rawfastqc_task.r1_fastqc
@@ -147,6 +155,16 @@ workflow GBS_identification_n_typing_workflow{
         String TS_MLST_allelic_profile = ts_mlst_task.ts_mlst_allelic_profile
         File? TS_MLST_novel_alleles = ts_mlst_task.ts_mlst_novel_alleles
 
-
+        # amrfinderplus 
+        File AMRFINDERPLUS_all_report = amrfinderplus_task.amrfinderplus_all_report
+        File AMRFINDERPLUS_amr_report = amrfinderplus_task.amrfinderplus_amr_report
+        File AMRFINDERPLUS_stress_report = amrfinderplus_task.amrfinderplus_stress_report
+        File AMRFINDERPLUS_virulence_report = amrfinderplus_task.amrfinderplus_virulence_report
+        String AMRFINDERPLUS_amr_core_genes = amrfinderplus_task.amrfinderplus_amr_core_genes
+        String AMRFINDERPLUS_amr_plus_genes = amrfinderplus_task.amrfinderplus_amr_plus_genes
+        String AMRFINDERPLUS_stress_genes = amrfinderplus_task.amrfinderplus_stress_genes
+        String AMRFINDERPLUS_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes
+        String AMRFINDERPLUS_amr_classes = amrfinderplus_task.amrfinderplus_amr_classes
+        String AMRFINDERPLUS_amr_subclasses = amrfinderplus_task.amrfinderplus_amr_subclasses
     }
 }
