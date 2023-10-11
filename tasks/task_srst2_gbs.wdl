@@ -23,6 +23,7 @@ task srst2_gbs_task{
             awk -F "\t" 'NR==2 {print $2}' ~{samplename}-serotypes__genes__GBS-SBG__results.txt > SEROTYPE
         else
             echo "No serotype detected" > SEROTYPE
+            echo "No serotype detected" > ~{samplename}-serotypes__genes__GBS-SBG__results.txt
         fi 
 
         if [ -f "~{samplename}-serotypes__fullgenes__GBS-SBG__results.txt" ]; then 
