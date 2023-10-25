@@ -21,6 +21,7 @@ workflow GBS_identification_n_typing_workflow{
         String? emmtypingtool_docker_image
         File? referance_genome
         File vfdb # http://www.mgc.ac.cn/VFs/download.htm
+        File kraken2_db
     }
 
     # tasks and/or subworkflows to execute
@@ -46,7 +47,8 @@ workflow GBS_identification_n_typing_workflow{
         input:
             read1 = trimmomatic_task.read1_paired,
             read2 = trimmomatic_task.read2_paired,
-            samplename = samplename
+            samplename = samplename,
+            kraken2_db = kraken2_db
     }
 
     call srst2_gbs.srst2_gbs_task{

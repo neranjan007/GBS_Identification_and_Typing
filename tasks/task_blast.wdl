@@ -14,11 +14,9 @@ task tblastn {
   command <<<
     # version
     tblastn -version | grep tblastn | cut -d " " -f2 > VERSION
-    # decompress db   
-    tar -xvf ~{vfdb}
-    query=${"~{vfdb}"%.gz}
+
     # tblastn
-    tblastn -query $query -subject ~{subject} -evalue ~{evalue} -max_hsps ~{max_hsps} -out blast.txt -outfmt 6
+    tblastn -query ~{vfdb} -subject ~{subject} -evalue ~{evalue} -max_hsps ~{max_hsps} -out blast.txt -outfmt 6
     awk 'BEGIN{print "qseqid\tsseqid\tpident\tlength\tmismatch\tgapopen\tqstart\tqend\tsstart\tsend\tevalue\tbitscore"};$3>=~{percent_identity} {print}' blast.txt > ~{samplename}.tblastn.tsv
     hits=$(awk '$3>=~{percent_identity} {print $1}' blast.txt | tr '\n' ', ' | sed 's/.$//')
  
