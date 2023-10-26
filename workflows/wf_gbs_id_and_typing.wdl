@@ -11,6 +11,7 @@ import "../tasks/task_gbs_sbg.wdl" as gbs_sbg
 import "../tasks/task_mummer-ani.wdl" as ani
 import "../tasks/task_ts_mlst.wdl" as ts_mlst
 import "../tasks/task_amrfinderplus.wdl" as amrfinderplus
+import "../tasks/task_blast.wdl" as blast
 
 workflow GBS_identification_n_typing_workflow{
     input{
@@ -19,6 +20,8 @@ workflow GBS_identification_n_typing_workflow{
         String samplename
         String? emmtypingtool_docker_image
         File? referance_genome
+        File vfdb # http://www.mgc.ac.cn/VFs/download.htm
+        File kraken2_db
     }
 
     # tasks and/or subworkflows to execute
@@ -44,7 +47,8 @@ workflow GBS_identification_n_typing_workflow{
         input:
             read1 = trimmomatic_task.read1_paired,
             read2 = trimmomatic_task.read2_paired,
-            samplename = samplename
+            samplename = samplename,
+            kraken2_db = kraken2_db
     }
 
     call srst2_gbs.srst2_gbs_task{
@@ -96,6 +100,15 @@ workflow GBS_identification_n_typing_workflow{
             assembly = spades_task.scaffolds,
             samplename = samplename,
             organism = trimmed_kraken_n_bracken_task.bracken_taxon
+    }
+
+    if ( vfdb != 'null') {
+        call blast.tblastn as virulance {
+            input:
+                samplename = samplename,
+                vfdb = vfdb,
+                subject = spades_task.scaffolds
+        }
     }
 
     output{
@@ -166,5 +179,11 @@ workflow GBS_identification_n_typing_workflow{
         String AMRFINDERPLUS_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes
         String AMRFINDERPLUS_amr_classes = amrfinderplus_task.amrfinderplus_amr_classes
         String AMRFINDERPLUS_amr_subclasses = amrfinderplus_task.amrfinderplus_amr_subclasses
+
+        # virulance
+        File? virulance_results = virulance.blast_results
+        String? virulance_genes = virulance.genes
+        String? blast_docker = virulance.blast_docker
+        String? blast_version = virulance.blast_version
     }
 }
