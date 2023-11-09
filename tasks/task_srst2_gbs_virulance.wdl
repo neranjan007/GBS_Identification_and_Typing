@@ -17,7 +17,7 @@ task srst2_gbs_virulence_task{
 
     command <<<
     
-        srst2 --input_pe ~{read1} ~{read2} --output ~{samplename}-virulence --log --gene_db /gbs-db/GBS_Surface_Genes.fasta
+        srst2 --input_pe ~{read1} ~{read2} --output ~{samplename}-virulence --log --gene_db /gbs-db/GBS_Surface_Genes.fasta --min_coverage 99.0 --max_divergence 8
 
         # checks the output files of genes are present or not
         if [ -f  "~{samplename}-virulence__genes__GBS_Surface_Genes__results.txt" ]; then
