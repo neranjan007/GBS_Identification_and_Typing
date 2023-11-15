@@ -9,6 +9,7 @@ task srst2_gbs_task{
         #task inputs
         File read1
         File read2
+        Boolean terra = false
         Int cpu = 2
         String docker = "neranjan007/srst2:0.2.0-gbs"
         Int memory = 100
@@ -16,8 +17,17 @@ task srst2_gbs_task{
     }
 
     command <<<
-    
-        srst2 --input_pe ~{read1} ~{read2} --output ~{samplename}-serotypes --log --gene_db /gbs-db/GBS-SBG.fasta
+        if [[ "~{terra}" == "true" ]]; then
+            INPUT_READS="--input_pe ~{read1} ~{read2} --forward _R1 --reverse _R2"
+            echo "  ${INPUT_READS} "
+            echo " terra is true"
+        else
+            INPUT_READS="--input_pe ~{read1} ~{read2}"
+            echo " ${INPUT_READS} "
+            echo " terra is false"
+        fi
+
+        srst2 ${INPUT_READS} --output ~{samplename}-serotypes --log --gene_db /gbs-db/GBS-SBG.fasta
 
         if [ -f  "~{samplename}-serotypes__genes__GBS-SBG__results.txt" ]; then
             awk -F "\t" 'NR==2 {print $2}' ~{samplename}-serotypes__genes__GBS-SBG__results.txt > SEROTYPE
