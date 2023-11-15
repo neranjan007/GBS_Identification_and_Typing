@@ -9,6 +9,7 @@ task srst2_gbs_virulence_task{
         #task inputs
         File read1
         File read2
+        Boolean terra = false
         Int cpu = 2
         String docker = "neranjan007/srst2:0.2.0-gbs-surfaceGenes"
         Int memory = 100
@@ -17,7 +18,18 @@ task srst2_gbs_virulence_task{
 
     command <<<
     
-        srst2 --input_pe ~{read1} ~{read2} --output ~{samplename}-virulence --log --gene_db /gbs-db/GBS_Surface_Genes.fasta --min_coverage 99.0 --max_divergence 8
+        if [[ "~{terra}" == "true" ]]; then
+            INPUT_READS="--input_pe ~{read1} ~{read2} --forward _R1 --reverse _R2"
+            echo "  ${INPUT_READS} "
+            echo " terra is true"
+        else
+            INPUT_READS="--input_pe ~{read1} ~{read2}"
+            echo " ${INPUT_READS} "
+            echo " terra is false"
+        fi
+
+    
+        srst2 ${INPUT_READS} --output ~{samplename}-virulence --log --gene_db /gbs-db/GBS_Surface_Genes.fasta --min_coverage 99.0 --max_divergence 8
 
         # checks the output files of genes are present or not
         if [ -f  "~{samplename}-virulence__genes__GBS_Surface_Genes__results.txt" ]; then
