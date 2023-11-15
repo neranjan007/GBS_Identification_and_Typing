@@ -21,6 +21,7 @@ workflow GBS_identification_n_typing_workflow{
         File kraken2_database
         String? emmtypingtool_docker_image
         File? referance_genome
+        Boolean? gbs_virulence_terra
     }
 
     # tasks and/or subworkflows to execute
@@ -105,7 +106,8 @@ workflow GBS_identification_n_typing_workflow{
         input:
             read1 = trimmomatic_task.read1_paired,
             read2 = trimmomatic_task.read2_paired,
-            samplename = samplename
+            samplename = samplename,
+            terra = gbs_virulence_terra
     }
 
     output{
