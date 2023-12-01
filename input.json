@@ -1,0 +1,10 @@
+{
+  "GBS_identification_n_typing_workflow.samplename": "String",
+  "GBS_identification_n_typing_workflow.R1": "File",
+  "GBS_identification_n_typing_workflow.R2": "File",
+  "GBS_identification_n_typing_workflow.kraken2_database": "File",
+  "GBS_identification_n_typing_workflow.postfix": "false (optional)",
+  "GBS_identification_n_typing_workflow.read1_postfix": "String (optional)",
+  "GBS_identification_n_typing_workflow.read2_postfix": "String (optional)"
+}
+
