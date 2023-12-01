@@ -57,7 +57,10 @@ workflow GBS_identification_n_typing_workflow{
         input:
             read1 = trimmomatic_task.read1_paired,
             read2 = trimmomatic_task.read2_paired,
-            samplename = samplename
+            samplename = samplename,
+            postfix = postfix,
+            read1_postfix = read1_postfix,
+            read2_postfix = read2_postfix
     }
 
     call spades.spades_task{

@@ -30,12 +30,12 @@ task srst2_gbs_virulence_task{
             echo " terra is false"
         fi
 
-    
+
         srst2 --samtools_args '\\-A' ${INPUT_READS} --output ~{samplename}-virulence --log --gene_db /gbs-db/GBS_Surface_Genes.fasta --min_coverage 99.0 --max_divergence 8 --threads ~{cpu}
 
         # checks the output files of genes are present or not
         if [ -f  "~{samplename}-virulence__genes__GBS_Surface_Genes__results.txt" ]; then
-            echo " virulence__genes__GBS_Surface_Genes__results.txt file present"
+            echo "virulence__genes__GBS_Surface_Genes__results.txt file present"
             # awk -F "\t" 'NR==2 {print $2}' ~{samplename}-virulence__genes__GBS_Surface_Genes__results.txt > SEROTYPE
         else
             # echo "No serotype detected" > SEROTYPE
@@ -43,7 +43,7 @@ task srst2_gbs_virulence_task{
         fi 
 
         if [ -f "~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt" ]; then 
-            echo "fullgenes__GBS_Surface_Genes__results.txt file exsits" 
+            echo "fullgenes__GBS_Surface_Genes__results.txt file file present" 
             # grep each virulence gene
             # surface protein 
             awk ' $3=="HVGA" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > HVGA
