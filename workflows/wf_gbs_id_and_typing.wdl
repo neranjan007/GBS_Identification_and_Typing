@@ -6,7 +6,7 @@ import "../tasks/task_srst2_gbs.wdl" as srst2_gbs
 import "../tasks/task_trimmomatic.wdl" as trimmomatic
 import "../tasks/task_spades.wdl" as spades
 import "../tasks/task_quast.wdl" as quast
-import "../tasks/task_rmlst.wdl" as rmlst
+# import "../tasks/task_rmlst.wdl" as rmlst
 import "../tasks/task_gbs_sbg.wdl" as gbs_sbg
 import "../tasks/task_mummer-ani.wdl" as ani
 import "../tasks/task_ts_mlst.wdl" as ts_mlst
@@ -21,7 +21,9 @@ workflow GBS_identification_n_typing_workflow{
         File kraken2_database
         String? emmtypingtool_docker_image
         File? referance_genome
-        Boolean? gbs_virulence_terra
+        Boolean? postfix
+        String? read1_postfix
+        String? read2_postfix
     }
 
     # tasks and/or subworkflows to execute
@@ -71,10 +73,10 @@ workflow GBS_identification_n_typing_workflow{
             samplename = samplename
     }
 
-    call rmlst.rmlst_task{
-        input:
-            scaffolds = spades_task.scaffolds
-    }
+#    call rmlst.rmlst_task{
+#        input:
+#            scaffolds = spades_task.scaffolds
+#    }
 
     call gbs_sbg.gbs_sbg_task{
         input:
@@ -107,7 +109,9 @@ workflow GBS_identification_n_typing_workflow{
             read1 = trimmomatic_task.read1_paired,
             read2 = trimmomatic_task.read2_paired,
             samplename = samplename,
-            terra = gbs_virulence_terra
+            postfix = postfix,
+            read1_postfix = read1_postfix,
+            read2_postfix = read2_postfix
     }
 
     output{
@@ -169,7 +173,7 @@ workflow GBS_identification_n_typing_workflow{
         Float QUAST_gc_percent = quast_task.gc_percent
 
         # rMLST 
-        String rMLST_TAXON = rmlst_task.taxon
+        # String rMLST_TAXON = rmlst_task.taxon
         
         # gbs_sbg 
         File GBS_SBG_report = gbs_sbg_task.gbs_sbg_report
