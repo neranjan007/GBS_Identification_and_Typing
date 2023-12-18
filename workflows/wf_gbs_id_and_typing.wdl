@@ -24,6 +24,7 @@ workflow GBS_identification_n_typing_workflow{
         Boolean? postfix
         String? read1_postfix
         String? read2_postfix
+        String? GBS_version = "1.3.0"
     }
 
     # tasks and/or subworkflows to execute
@@ -206,5 +207,8 @@ workflow GBS_identification_n_typing_workflow{
         String AMRFINDERPLUS_virulence_genes = amrfinderplus_task.amrfinderplus_virulence_genes
         String AMRFINDERPLUS_amr_classes = amrfinderplus_task.amrfinderplus_amr_classes
         String AMRFINDERPLUS_amr_subclasses = amrfinderplus_task.amrfinderplus_amr_subclasses
+
+        # pipeline version 
+        String? GBS_workflow_version = GBS_version
     }
 }
