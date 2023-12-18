@@ -24,7 +24,7 @@ workflow GBS_identification_n_typing_workflow{
         Boolean? postfix
         String? read1_postfix
         String? read2_postfix
-        String? GBS_version = "1.3.0"
+        String? GBS_version = "1.4.0"
     }
 
     # tasks and/or subworkflows to execute
