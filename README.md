@@ -36,7 +36,7 @@ Input JSON file should have the following required input variables:
 } 
 ```
 
-The pipeline expects the input files to have the nomal file names produce by miseq instrument.   
+The pipeline expects the input files to have the standard file names produce by miseq instrument.   
 
 eg:  `${samplename}_S6_L001_R1_001.fastq.gz`   
 
