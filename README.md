@@ -19,7 +19,8 @@ Pipeline can be run on command line or using Terra interface.
 
 ### Database:   
 Will need the Kraken2/Bracken database present as a tar.gz file.   
-[Standard-8](https://genome-idx.s3.amazonaws.com/kraken/k2_standard_08gb_20230605.tar.gz) :  [https://benlangmead.github.io/aws-indexes/k2](https://benlangmead.github.io/aws-indexes/k2)   
+Standard-8  :  [https://benlangmead.github.io/aws-indexes/k2](https://benlangmead.github.io/aws-indexes/k2)   :  [download link](https://genome-idx.s3.amazonaws.com/kraken/k2_standard_08gb_20230605.tar.gz)   
+
 
 
 ### command line  
@@ -33,6 +34,17 @@ Input JSON file should have the following required input variables:
   "GBS_identification_n_typing_workflow.R2": "File",
   "GBS_identification_n_typing_workflow.kraken2_database": "File"
 } 
+```
+
+The pipeline expects the input files to have the nomal file names produce by miseq instrument.   
+
+eg:  `${samplename}_S6_L001_R1_001.fastq.gz`   
+
+If the input files have any other post-fix name other than above, eg: `${samplename}_R1.fastq.gz`, then the post-fix name need to be included in the input section addition to the required input varialbles.  
+```json
+  "GBS_identification_n_typing_workflow.postfix": "true",
+  "GBS_identification_n_typing_workflow.read1_postfix": "_R1",
+  "GBS_identification_n_typing_workflow.read2_postfix": "_R2"
 ```
 
 
