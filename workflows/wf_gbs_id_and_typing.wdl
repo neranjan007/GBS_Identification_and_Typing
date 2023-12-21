@@ -105,7 +105,7 @@ workflow GBS_identification_n_typing_workflow{
         input:
             assembly = spades_task.scaffolds,
             samplename = samplename,
-            organism = trimmed_kraken_n_bracken_task.bracken_taxon
+            organism = mummerANI_task.ani_species
     }
 
     call srst2_gbs_virulance.srst2_gbs_virulence_task{
@@ -125,6 +125,10 @@ workflow GBS_identification_n_typing_workflow{
         String FASTQ_SCAN_raw_total_no_bases = rawfastqc_task.total_no_bases
         String FASTQ_SCAN_raw_coverage = rawfastqc_task.coverage
         String FASTQC_SCAN_exp_length = rawfastqc_task.exp_length
+
+        # Trimmomatic
+        File Trimmomatic_stats = trimmomatic_task.trimed_stats
+        String Trimomatic_serviving_pairs_percent = trimmomatic_task.serviving_read_pairs
 
         # Trimmed read qc
         File FASTQC_Trim_R1 = trimmedfastqc_task.r1_fastqc
