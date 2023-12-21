@@ -1,6 +1,6 @@
 # Group B Streptococcus (GBS) identification and typing   
 
-## Introduction  
+# Introduction  
 
 This workflow will identify and serotype group B Streptococcus.  
 This is a bioinformatic pipeline developed using WDL to perform serotyping group B Streptococcus speices. This pipeline uses docker containers which will simplyfy and reduce the installation and compatibility issues arrise duing installation of softwares. The workflow can be deployed in a standalone computer as well as using Terra platform. To run as a standalone simply clone the repository to your working environment and to run the pipeline you need a cromwell to be installed as a prerequisite. To run in Terra platform, you can use the [Dockstore](https://dockstore.org/workflows/github.com/neranjan007/GBS_Identification_and_Typing/GBS_Identification_and_Typing:main?tab=info) to search and launch to Terra.   
@@ -14,8 +14,14 @@ CT-GBSIDnType workflow takes paired end reads as input, and will perform:
 *  Check for surface genes (Pili, Alpha like proteins, Serine rich proteins)
 *  Check for antibiotic resistance genes  
 
-## Quick Run Guide  
+# Quick Run Guide  
 Pipeline can be run on command line or using Terra interface.  
+Pre-requisite for command line: Cromwell need to be installed in the local computer
+
+## Instalation  
+```bash
+git clone https://github.com/neranjan007/GBS_Identification_and_Typing.git  
+```
 
 ### Database:   
 Will need the Kraken2/Bracken database present as a tar.gz file.   
@@ -23,8 +29,8 @@ Standard-8  :  [https://benlangmead.github.io/aws-indexes/k2](https://benlangmea
 
 
 
-### command line  
-Pre-requisite: Cromwell need to be installed in the local computer.  
+### Inputs  
+ 
 
 Input JSON file should have the following required input variables:  
 ```json
@@ -49,7 +55,11 @@ If the input files have any other post-fix name other than above, eg: `${samplen
 }
 ```
 
+### Command line  
 
+```
+java -jar cromwell run workflows/wf_gbs_id_and_typing.wdl -i input.json 
+```
 
 ## Reference   
 *   Tiruvayipati, et al. "GBS-SBG - GBS Serotyping by Genome Sequencing." Microb Genom. 2021 Dec;7(12). doi: 10.1099/mgen.0.000688
