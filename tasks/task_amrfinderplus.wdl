@@ -25,33 +25,19 @@ task amrfinderplus_task {
     # capture the database version; strip out unnecessary output, remove "Database version: " that prints in front of the actual database version
     amrfinder --database_version 2>/dev/null | grep "Database version" | sed 's|Database version: ||' | tee AMRFINDER_DB_VERSION
 
-    ## create associative array
-    declare -A organisms=( ["Acinetobacter baumannii"]="Acinetobacter_baumannii" ["Burkholderia cepacia"]="Burkholderia_cepacia" \
-      ["Burkholderia pseudomallei"]="Burkholderia_pseudomallei" ["Campylobacter coli"]="Campylobacter" ["Campylobacter jejuni"]="Campylobacter" \
-      ["Citrobacter freundii"]="Citrobacter_freundii" ["Clostridioides _difficile"]="Clostridioides_difficile" ["Enterobacter cloacae"]="Enterobacter_cloacae" \
-      ["Enterococcus faecalis"]="Enterococcus_faecalis" ["Enterococcus hirae"]="Enterococcus_faecium" ["Enterococcusfaecium"]="Enterococcus_faecium" \
-      [*"Escherichia"*]="Escherichia" [*"Shigella"*]="Escherichia" ["Klebsiella aerogenes"]="Klebsiella_pneumoniae" ["Klebsiella pneumoniae"]="Klebsiella_pneumoniae" \
-      ["Klebsiella variicola"]="Klebsiella_pneumoniae" ["Klebsiella oxytoca"]="Klebsiella_oxytoca" ["Neisseria gonorrhea"]="Neisseria_gonorrhoeae" \
-      ["Neisseria gonorrhoeae"]="Neisseria_gonorrhoeae" ["Neisseria meningitidis"]="Neisseria_meningitidis" ["Pseudomonas aeruginosa"]="Pseudomonas_aeruginosa" \
-      [*"Salmonella"*]="Salmonella" ["Serratia marcescens"]="Serratia_marcescens" ["Staphylococcus aureus"]="Staphylococcus_aureus" \
-      ["Staphylococcus pseudintermedius"]="Staphylococcus_pseudintermedius" ["Streptococcus agalactiae"]="Streptococcus_agalactiae" \
-      ["Streptococcus pneumoniae"]="Streptococcus_pneumoniae" ["Streptococcus mitis"]="Streptococcus_pneumoniae" \
-      ["Streptococcus pyogenes"]="Streptococcus_pyogenes" ["Vibrio cholerae"]="Vibrio_cholerae"
-      )
+    echo "ANI organism is : " ~{organism}
 
-    for key in "${!organisms[@]}"; do
-      if [[ "~{organism}" == $key ]]; then
-        amrfinder_organism=${organisms[$key]}
-      elif [[ "~{organism}" == *$key* ]]; then
-        amrfinder_organism=${organisms[$key]}
-      fi
-    done
+    if [[ "~{organism}"=="Streptococcus_agalactiae" ]] ; then
+      amrfinder_organism="~{organism}"
+    else 
+      amrfinder_organism=""
+    fi
 
     # checking bash variable
     echo "amrfinder_organism is set to: " ${amrfinder_organism}
     
     # if amrfinder_organism variable is set, use --organism flag, otherwise do not use --organism flag
-    if [[ -v amrfinder_organism ]] ; then
+    if [[ ! -z ${amrfinder_organism} ]] ; then
       # always use --plus flag, others may be left out if param is optional and not supplied 
       amrfinder --plus \
         --organism ${amrfinder_organism} \
