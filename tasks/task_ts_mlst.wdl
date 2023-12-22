@@ -8,7 +8,8 @@ task ts_mlst_task{
     input{
         File assembly
         String samplename
-        String docker = "staphb/mlst:2.23.0"
+        #String docker = "staphb/mlst:2.23.0" 
+        String docker = "staphb/mlst:2.23.0-2023-07"
         Int disk_size = 100
         Int memory = 8 # added default value
         Int cpu = 4 # added default value  
