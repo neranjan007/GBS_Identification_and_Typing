@@ -11,6 +11,9 @@ workflow batch_gbs {
         File kraken2_database
         String? emmtypingtool_docker_image
         File? referance_genome
+        Boolean? postfix
+        String? read1_postfix
+        String? read2_postfix
     }
 
     scatter (sample in inputSamples) {
@@ -21,7 +24,10 @@ workflow batch_gbs {
                 R2 = sample[2],
                 kraken2_database = kraken2_database,
                 emmtypingtool_docker_image = emmtypingtool_docker_image,
-                referance_genome = referance_genome
+                referance_genome = referance_genome,
+                postfix = postfix,
+                read1_postfix = read1_postfix,
+                read2_postfix = read2_postfix
         }
     }
 

@@ -12,6 +12,7 @@ import "../tasks/task_mummer-ani.wdl" as ani
 import "../tasks/task_ts_mlst.wdl" as ts_mlst
 import "../tasks/task_amrfinderplus.wdl" as amrfinderplus
 import "../tasks/task_srst2_gbs_virulance.wdl" as srst2_gbs_virulance 
+import "../tasks/task_versioning.wdl" as versioning
 
 workflow GBS_identification_n_typing_workflow{
     input{
@@ -24,7 +25,11 @@ workflow GBS_identification_n_typing_workflow{
         Boolean? postfix
         String? read1_postfix
         String? read2_postfix
-        String? GBS_version = "1.4.0"
+    }
+
+    # Version
+    call versioning.version_capture{
+        input:
     }
 
     # tasks and/or subworkflows to execute
@@ -119,6 +124,10 @@ workflow GBS_identification_n_typing_workflow{
     }
 
     output{
+        # versioning
+        String GBS_workflow_version = version_capture.gbs_version
+        String Workflow_run_date = version_capture.date
+
         # raw fastqc
         File FASTQC_raw_R1 = rawfastqc_task.r1_fastqc
         File FASTQC_raw_R2 = rawfastqc_task.r2_fastqc
@@ -212,7 +221,7 @@ workflow GBS_identification_n_typing_workflow{
         String AMRFINDERPLUS_amr_classes = amrfinderplus_task.amrfinderplus_amr_classes
         String AMRFINDERPLUS_amr_subclasses = amrfinderplus_task.amrfinderplus_amr_subclasses
 
-        # pipeline version 
-        String? GBS_workflow_version = GBS_version
+
+
     }
 }
