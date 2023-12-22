@@ -137,7 +137,7 @@ workflow GBS_identification_n_typing_workflow{
 
         # Trimmomatic
         File Trimmomatic_stats = trimmomatic_task.trimed_stats
-        String Trimomatic_serviving_pairs_percent = trimmomatic_task.serviving_read_pairs
+        String Trimmomatic_serviving_pairs_percent = trimmomatic_task.serviving_read_pairs
 
         # Trimmed read qc
         File FASTQC_Trim_R1 = trimmedfastqc_task.r1_fastqc
