@@ -18,7 +18,7 @@ CT-GBSIDnType workflow takes paired end reads as input, and will perform:
 Pipeline can be run on command line or using Terra interface.  
 Pre-requisite for command line: Cromwell need to be installed in the local computer
 
-## Instalation  
+## Installation  
 ```bash
 git clone https://github.com/neranjan007/GBS_Identification_and_Typing.git  
 ```
