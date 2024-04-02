@@ -11,7 +11,7 @@ task blast_virulence_task{
         File db_fasta_file
         Float evalue = 0.000001
         Int max_hsps = 1
-        Int percent_identity = 90
+        Int percent_identity = 90.0
         String docker = "staphb/blast:2.14.0"
         Int cpu = 1
         Int memory = 2
@@ -33,11 +33,11 @@ task blast_virulence_task{
 
         awk 'BEGIN{print "qseqid\tsseqid\tpident\tlength\tmismatch\tgapopen\tqstart\tqend\tsstart\tsend\tevalue\tbitscore\tgidgname\tgname\tgdiscription\tgvirfactor\tgfunction"}; {print}' blast_out_wt_gene_names.txt > ~{samplename}-blast_out_wt_gene_names.txt
 
-        awk 'BEGIN{print "qseqid\tsseqid\tpident\tlength\tmismatch\tgapopen\tqstart\tqend\tsstart\tsend\tevalue\tbitscore\tgidgname\tgname\tgdiscription\tgvirfactor\tgfunction"};$3>=~{percent_identity} {print}' blast_out_wt_gene_names.txt > ~{samplename}-filtered-blast_out_wt_gene_names.txt
+        awk 'BEGIN{print "qseqid\tsseqid\tpident\tlength\tmismatch\tgapopen\tqstart\tqend\tsstart\tsend\tevalue\tbitscore\tgidgname\tgname\tgdiscription\tgvirfactor\tgfunction"};{ if($3>=~{percent_identity}) {print}}' blast_out_wt_gene_names.txt > ~{samplename}-filtered-blast_out_wt_gene_names.txt
         
         hits=$(awk '{print $14}' blast_out_wt_gene_names.txt | tr '\n' ', ' | sed 's/.$//')
 
-        filtered_hits=$(awk '$3>=~{percent_identity} {print $14}' blast_out_wt_gene_names.txt | tr '\n' ', ' | sed 's/.$//')
+        filtered_hits=$(awk '{if($3>=~{percent_identity}) {print $14}}' blast_out_wt_gene_names.txt | tr '\n' ', ' | sed 's/.$//')
 
         
 
