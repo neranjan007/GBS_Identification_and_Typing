@@ -12,7 +12,7 @@ task blast_virulence_task{
         Float evalue = 0.000001
         Int max_hsps = 1
         Int percent_identity = 90.0
-        String docker = "staphb/blast:2.14.0"
+        String docker = "staphb/blast:2.15.0"
         Int cpu = 1
         Int memory = 2
     } 
@@ -39,7 +39,7 @@ task blast_virulence_task{
 
         filtered_hits=$(awk '{if($3>=~{percent_identity}) {print $14}}' blast_out_wt_gene_names.txt | tr '\n' ', ' | sed 's/.$//')
 
-        
+        awk '{print $14}' blast_out_wt_gene_names.txt | sort | uniq -c > ~{samplename}-blast_out_wt_gene_names_uniq_list.txt
 
         if [ -z "$filtered_hits"]
         then
@@ -53,6 +53,7 @@ task blast_virulence_task{
     output{
         File blast_file = "~{samplename}-blast_out_wt_gene_names.txt"
         File blast_file_filtered = "~{samplename}-filtered-blast_out_wt_gene_names.txt"
+        File blast_uniq_gene_list = "~{samplename}-blast_out_wt_gene_names_uniq_list.txt"
         String blast_filtered_hits = read_string("BLAST_FILTERED_HITS")
     }
 
