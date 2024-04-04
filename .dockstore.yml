@@ -4,9 +4,9 @@ workflows:
    subclass: WDL
    primaryDescriptorPath: /workflows/wf_gbs_id_and_typing.wdl
    testParameterFiles:
-    - empty.json
+    - /files/empty.json
  - name: BLAST_virulence
    subclass: WDL
    primaryDescriptorPath: /tasks/task_blast_virulence.wdl
    testParameterFiles:
-    - empty.json
+    - /files/empty.json
