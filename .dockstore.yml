@@ -7,6 +7,6 @@ workflows:
     - /files/empty.json
  - name: BLAST_virulence
    subclass: WDL
-   primaryDescriptorPath: /tasks/task_blast_virulence.wdl
+   primaryDescriptorPath: /workflows/wf_blast_virulence.wdl
    testParameterFiles:
     - /files/empty.json
