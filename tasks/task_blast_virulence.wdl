@@ -11,7 +11,7 @@ task blast_virulence_task{
         File db_fasta_file
         Float evalue = 0.000001
         Int max_hsps = 1
-        Int percent_identity = 90.0
+        Float percent_identity = 90.0
         String docker = "staphb/blast:2.15.0"
         Int cpu = 1
         Int memory = 2
