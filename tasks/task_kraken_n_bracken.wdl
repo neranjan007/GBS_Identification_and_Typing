@@ -31,7 +31,7 @@ task kraken_n_bracken_task{
             --minimum-hit-groups ~{min_hit_groups} \
             --report-minimizer-data \
             --paired ~{read1} ~{read2} \
-            --report ~{samplename}.kraken.report.txt 
+            --report ~{samplename}.kraken.report.txt > ./k2_output.txt 2> ./k2_error.txt 
         
         # run braken
         bracken \
