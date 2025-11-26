@@ -21,7 +21,7 @@ task srst2_gbs_virulence_task{
     command <<<
     
         if [[ "~{postfix}" == "true" ]]; then
-            INPUT_READS="--input_pe ~{read1} ~{read2} --forward ~{read1_postfix} --reverse _~{read2_postfix}"
+            INPUT_READS="--input_pe ~{read1} ~{read2} --forward ~{read1_postfix} --reverse ~{read2_postfix}"
             echo "  ${INPUT_READS} "
             echo " terra is true"
         else
