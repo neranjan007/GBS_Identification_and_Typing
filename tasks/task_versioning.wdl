@@ -11,7 +11,7 @@ task version_capture {
     volatile: true
   }
   command {
-    GBS_Version="GBS v1.4.1 - patch"
+    GBS_Version="GBS v1.4.2"
     ~{default='' 'export TZ=' + timezone}
     date +"%Y-%m-%d" > TODAY
     echo "$GBS_Version" > GBS_VERSION
