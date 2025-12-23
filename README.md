@@ -59,9 +59,16 @@ If the input files have any other post-fix name other than above, eg: `${samplen
 
 ### Command line  
 
+cromwell  
 ```
 java -jar cromwell run workflows/wf_gbs_id_and_typing.wdl -i input.json 
+```  
+
+miniwdl  
 ```
+miniwdl run workflows/wf_gbs_id_and_typing.wdl -i input.json  
+```  
+
 
 ## Reference   
 *   Tiruvayipati, et al. "GBS-SBG - GBS Serotyping by Genome Sequencing." Microb Genom. 2021 Dec;7(12). doi: 10.1099/mgen.0.000688
