@@ -27,7 +27,7 @@ task amrfinderplus_task {
 
     echo "ANI organism is : " ~{organism}
 
-    if [[ "~{organism}"=="Streptococcus_agalactiae" ]] ; then
+    if [[ "~{organism}" == "Streptococcus_agalactiae" ]] ; then
       amrfinder_organism="~{organism}"
     else 
       amrfinder_organism=""
