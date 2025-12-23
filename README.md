@@ -1,5 +1,5 @@
 # Group B Streptococcus (GBS) identification and typing   
-[![Dockstore](https://img.shields.io/badge/Dockstore-CT--GBS-blue)](https://dockstore.org/workflows/github.com/neranjan007/GBS_Identification_and_Typing/GBS_Identification_and_Typing:main?tab=info)   [![Dockstore](https://img.shields.io/badge/Dockstore-version--1.4.2-blue)]()   
+[![Dockstore](https://img.shields.io/badge/Dockstore-CT--GBS-blue)](https://dockstore.org/workflows/github.com/neranjan007/GBS_Identification_and_Typing/GBS_Identification_and_Typing:main?tab=info)   [![Dockstore](https://img.shields.io/badge/Version-1.4.2-blue)]()
 
 
 # Introduction  
@@ -51,7 +51,7 @@ eg:  `${samplename}_S6_L001_R1_001.fastq.gz`
 If the input files have any other post-fix name other than above, eg: `${samplename}_R1.fastq.gz`, then the post-fix name need to be included in the input section addition to the required input varialbles.  
 ```json
 {
-  "GBS_identification_n_typing_workflow.postfix": "true",
+  "GBS_identification_n_typing_workflow.postfix": true,
   "GBS_identification_n_typing_workflow.read1_postfix": "_R1",
   "GBS_identification_n_typing_workflow.read2_postfix": "_R2"
 }
