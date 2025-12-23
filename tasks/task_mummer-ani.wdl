@@ -48,6 +48,7 @@ task mummerANI_task{
             echo "0.0" > TOP_ANI
             echo "0.0" > TOP_PERCENT_ANI
             echo "ANI skipped due to high genetic divergence from reference genomes" > ANI_TOP_SPECIES_MATCH
+            echo "ANI skipped due to high genetic divergence from reference genomes" > TOP_SPECIES_ANI
         # if output TSV has greater than 1 lines, then parse for appropriate outputs
         else
             awk 'NR == 1;  NR > 1 {print $0 | "sort -k5 -nr" }' ~{samplename}.ani-mummer.out.tsv | tee ~{samplename}.ani-mummer.out.sorted.tsv
