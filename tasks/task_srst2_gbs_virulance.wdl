@@ -44,30 +44,37 @@ task srst2_gbs_virulence_task{
 
         if [ -f "~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt" ]; then 
             echo "fullgenes__GBS_Surface_Genes__results.txt file file present" 
-            # grep each virulence gene
-            # surface protein 
-            awk ' $3=="HVGA" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > HVGA
-            # pili
-            awk ' $3=="PI1" { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI1
-            awk ' $3=="PI1B " { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI1B
-            awk ' $3=="PI2A1"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2A1
-            awk ' $3=="PI2A2"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2A2
-            awk ' $3=="PI2A3"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2A3
-            awk ' $3=="PI2A4"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2A4
-            awk ' $3=="PI2B"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2B
-            awk ' $3=="PI2B2"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2B2
-            # Serine rich repeat protein
-            awk ' $3=="SRR1" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > SRR1
-            awk ' $3=="SRR2" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > SRR2
-            # alpha like protein
-            awk ' $3=="ALP1" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > ALP1
-            awk ' $3=="ALP23" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > ALP23
-            awk ' $3=="ALPHA" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > ALPHA
-            awk ' $3=="RIB" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > RIB
-
+            # check the file is empty or not
+            if [ -s "~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt"]; then
+                echo "fullgenes__GBS_Surface_Genes__results.txt has data "
+                # grep each virulence gene
+                # surface protein 
+                awk ' $3=="HVGA" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > HVGA
+                # pili
+                awk ' $3=="PI1" { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI1
+                awk ' $3=="PI1B " { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI1B
+                awk ' $3=="PI2A1"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2A1
+                awk ' $3=="PI2A2"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2A2
+                awk ' $3=="PI2A3"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2A3
+                awk ' $3=="PI2A4"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2A4
+                awk ' $3=="PI2B"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2B
+                awk ' $3=="PI2B2"  { print $4 } ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > PI2B2
+                # Serine rich repeat protein
+                awk ' $3=="SRR1" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > SRR1
+                awk ' $3=="SRR2" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > SRR2
+                # alpha like protein
+                awk ' $3=="ALP1" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > ALP1
+                awk ' $3=="ALP23" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > ALP23
+                awk ' $3=="ALPHA" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > ALPHA
+                awk ' $3=="RIB" { print $4} ' ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt > RIB
+            else
+                echo "File is present but empty"
+                touch HVGA PI1 PI1B PI2A1 PI2A2 PI2A3 PI2A4 PI2B PI2B2 SRR1 SRR2 ALP1 ALP23 ALPHA RIB 
+            fi
         else
             echo "fullgenes__GBS_Surface_Genes__results.txt file not present"
             echo "No fullgenes file produced" > ~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt
+            touch HVGA PI1 PI1B PI2A1 PI2A2 PI2A3 PI2A4 PI2B PI2B2 SRR1 SRR2 ALP1 ALP23 ALPHA RIB
         fi
 
     >>>
