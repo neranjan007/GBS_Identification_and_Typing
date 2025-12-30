@@ -45,7 +45,7 @@ task srst2_gbs_virulence_task{
         if [ -f "~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt" ]; then 
             echo "fullgenes__GBS_Surface_Genes__results.txt file file present" 
             # check the file is empty or not
-            if [ -s "~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt"]; then
+            if [ -s "~{samplename}-virulence__fullgenes__GBS_Surface_Genes__results.txt" ]; then
                 echo "fullgenes__GBS_Surface_Genes__results.txt has data "
                 # grep each virulence gene
                 # surface protein 
