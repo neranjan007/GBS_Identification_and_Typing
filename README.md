@@ -1,5 +1,5 @@
 # Group B Streptococcus (GBS) identification and typing   
-[![Dockstore](https://img.shields.io/badge/Dockstore-CT--GBS-blue)](https://dockstore.org/workflows/github.com/neranjan007/GBS_Identification_and_Typing/GBS_Identification_and_Typing:main?tab=info)   [![Dockstore](https://img.shields.io/badge/Version-1.4.3-blue)]()
+[![Dockstore](https://img.shields.io/badge/Dockstore-CT--GBS-blue)](https://dockstore.org/workflows/github.com/neranjan007/GBS_Identification_and_Typing/GBS_Identification_and_Typing:main?tab=info)   [![Dockstore](https://img.shields.io/badge/Version-1.4.4-blue)]()
 
 
 # Introduction  
